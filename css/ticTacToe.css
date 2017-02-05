@@ -1,0 +1,26 @@
+body {background-color:white}
+
+.center{
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.blueColor {color: #0325a3}
+
+.marginFromPage {
+    margin-left: 30px;
+}
+
+#container{
+                  /*Styling for any element with the id="container" */
+                         /*width:92%; */ /* The width is liquid by screen-percentage*/
+                         /*height:80%;*/ /* The height is liquid by screen-percentage*/
+                         color:white;
+                         background-color:white;
+                         margin: auto
+            }
+
+#header {
+    background-color: #0325a3;
+    padding-top: 1px
+}      
