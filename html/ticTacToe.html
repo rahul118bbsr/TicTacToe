@@ -7,25 +7,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/ticTacToe.css" />
+    <script src="../js/ticTacToe.js"></script>
   </head>
   <body id="container">
         <div id="header">
             <h1 class="center">Welcome to Tic Tac Toe - A game built by Humans for the Computer</h1>      
+        </div>        
+
+        <div class = 'main-container'>
+            <div class = 'board'>
+                <!-- data-indx following cell divs represents cell index in 1D array representation -->
+                <div id="cell_0" class='cell' data-indx = "0" onclick="MakeMove(0)"></div>
+                <div id="cell_1" class='cell' data-indx = "1" onclick="MakeMove(1)"></div>
+                <div id="cell_2" class='cell' data-indx = "2" onclick="MakeMove(2)"></div>
+                <div id="cell_3" class='cell' data-indx = "3" onclick="MakeMove(3)"></div>
+                <div id="cell_4" class='cell' data-indx = "4" onclick="MakeMove(4)"></div>
+                <div id="cell_5" class='cell' data-indx = "5" onclick="MakeMove(5)"></div>
+                <div id="cell_6" class='cell' data-indx = "6" onclick="MakeMove(6)"></div>
+                <div id="cell_7" class='cell' data-indx = "7" onclick="MakeMove(7)"></div>
+                <div id="cell_8" class='cell' data-indx = "8" onclick="MakeMove(8)"></div>
+            </div>
+         </div>
+
+
+         <div class="buttonMargin textStyle">
+             <p id="turnInfo"> TURN INFO </p>
         </div>
 
-        <div class="marginFromPage">
-            <table>
-                <tr>
-                    <td>
-                        <h4 class="blueColor">Game Settings:</h4>
-                    </td>
-                        
-                    <!-- <td>
-                        <img src="../images/settings.png" alt="settings" style="width:30px;height:30px">
-                    </td> -->
-                </tr>
-            </table>
+        <div class="buttonMargin">
+            <form>
+                <input type="button" value="New Game" onclick="NewGame()" class="btn-custom"/>
+            </form>
         </div>
+        
+        <div class="textStyle">
+            <strong class="textStyle">Search time for move:</strong> <br />
+            <div id="searchTime"></div> 
+       </div>
 
   </body
 </html>
