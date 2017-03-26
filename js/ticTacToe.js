@@ -3,7 +3,7 @@ playerImage.src = "../images/o.png";
 var computerImage = new Image();
 computerImage.src = "../images/x.png";
 var board = new Array();
-var BOARD_SIZE = 9;
+//var BOARD_SIZE = 9;
 var UNOCCUPIED = ' ';
 var HUMAN_PLAYER = 'O';
 var COMPUTER_PLAYER = 'X';
@@ -153,35 +153,69 @@ function GetAvailableMoves(game) {
 //   3 if COMPUTER_PLAYER won
 function CheckForWinner(game) {
     // Check for horizontal wins
-    for (i = 0; i <= 6; i += 3)
-    {
-        if (game[i] === HUMAN_PLAYER && game[i + 1] === HUMAN_PLAYER && game[i + 2] === HUMAN_PLAYER)
+    for (i = 0; i <= BOARD_LENGTH * 2;) {
+        var boardWidth = BOARD_LENGTH - 1;
+        var pointsForHuman = 0;
+        var pointsForComputer = 0;
+        while(boardWidth >= 0) {
+            boardWidth--;
+            if(game[i] === HUMAN_PLAYER) {
+                pointsForHuman++;
+            } else if(game[i] === COMPUTER_PLAYER) {
+                pointsForComputer++;
+            }
+            i++;
+        }
+
+        if(pointsForHuman == BOARD_LENGTH) {
             return 2;
-        if (game[i] === COMPUTER_PLAYER && game[i + 1] === COMPUTER_PLAYER && game[i + 2] === COMPUTER_PLAYER)
+        } else if(pointsForComputer == BOARD_LENGTH) {
             return 3;
+        }
     }
 
     // Check for vertical wins
-    for (i = 0; i <= 2; i++)
-    {
-        if (game[i] === HUMAN_PLAYER && game[i + 3] === HUMAN_PLAYER && game[i + 6] === HUMAN_PLAYER)
+    for (i = 0; i <= BOARD_LENGTH - 1; i++) {
+        var boardLength = 0;
+        var pointsForHuman = 0;
+        var pointsForComputer = 0;
+        while(boardLength < BOARD_LENGTH) {
+            var index = i + (BOARD_LENGTH * boardLength)
+            if(game[index] == HUMAN_PLAYER) {
+                pointsForHuman++;
+            } else if(game[index] === COMPUTER_PLAYER) {
+                pointsForComputer++;
+            }
+            boardLength++;
+        }
+
+        if(pointsForHuman == BOARD_LENGTH) {
             return 2;
-        if (game[i] === COMPUTER_PLAYER && game[i + 3] === COMPUTER_PLAYER && game[i + 6] === COMPUTER_PLAYER)
+        } else if(pointsForComputer == BOARD_LENGTH) {
             return 3;
+        }
     }
 
     // Check for diagonal wins
-    if ((game[0] === HUMAN_PLAYER && game[4] === HUMAN_PLAYER && game[8] === HUMAN_PLAYER) ||
-            (game[2] === HUMAN_PLAYER && game[4] === HUMAN_PLAYER && game[6] === HUMAN_PLAYER))
-        return 2;
+    var pointsForHuman = 0;
+    var pointsForComputer = 0;
+    for(i = 0; i < BOARD_LENGTH; i++) {
+        var index = i + (BOARD_LENGTH * i);
+        if(game[index] == HUMAN_PLAYER) {
+            pointsForHuman++;
+        } else if(game[index] === COMPUTER_PLAYER) {
+            pointsForComputer++;
+        }
 
-    if ((game[0] === COMPUTER_PLAYER && game[4] === COMPUTER_PLAYER && game[8] === COMPUTER_PLAYER) ||
-            (game[2] === COMPUTER_PLAYER && game[4] === COMPUTER_PLAYER && game[6] === COMPUTER_PLAYER))
+    }
+    if(pointsForHuman == BOARD_LENGTH) {
+        return 2;
+    } else if(pointsForComputer == BOARD_LENGTH) {
         return 3;
+    }
 
     // Check for tie
-    for (i = 0; i < BOARD_SIZE; i++)
-    {
+    for (i = 0; i < BOARD_SIZE; i++) {
         if (game[i] !== HUMAN_PLAYER && game[i] !== COMPUTER_PLAYER)
             return 0;
     }   

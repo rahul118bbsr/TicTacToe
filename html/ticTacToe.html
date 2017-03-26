@@ -8,6 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/ticTacToe.css" />
     <script src="../js/ticTacToe.js"></script>
+    <script src="../js/ui.js"></script>
   </head>
   <body id="container">
         <div id="header">
@@ -15,17 +16,11 @@
         </div>        
 
         <div class = 'main-container'>
-            <div class = 'board'>
+            <div id= "boardID" class = 'board'>
+                <script type="text/javascript">
+                    buildGameBoard(4);
+                </script>
                 <!-- data-indx following cell divs represents cell index in 1D array representation -->
-                <div id="cell_0" class='cell' data-indx = "0" onclick="MakeMove(0)"></div>
-                <div id="cell_1" class='cell' data-indx = "1" onclick="MakeMove(1)"></div>
-                <div id="cell_2" class='cell' data-indx = "2" onclick="MakeMove(2)"></div>
-                <div id="cell_3" class='cell' data-indx = "3" onclick="MakeMove(3)"></div>
-                <div id="cell_4" class='cell' data-indx = "4" onclick="MakeMove(4)"></div>
-                <div id="cell_5" class='cell' data-indx = "5" onclick="MakeMove(5)"></div>
-                <div id="cell_6" class='cell' data-indx = "6" onclick="MakeMove(6)"></div>
-                <div id="cell_7" class='cell' data-indx = "7" onclick="MakeMove(7)"></div>
-                <div id="cell_8" class='cell' data-indx = "8" onclick="MakeMove(8)"></div>
             </div>
          </div>
 
