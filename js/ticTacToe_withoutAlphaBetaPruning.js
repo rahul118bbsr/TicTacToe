@@ -1,3 +1,7 @@
+var playerImage = new Image();
+playerImage.src = "../images/o.png";
+var computerImage = new Image();
+computerImage.src = "../images/x.png";
 var board = new Array();
 var UNOCCUPIED = ' ';
 var HUMAN_PLAYER = 'O';
@@ -7,14 +11,12 @@ var choice;
 var searchTimes = new Array();
 var showAverageTime = true;
 
-function NewGame() {
-   for (i = 0; i < BOARD_SIZE; i++)
+function NewGame()
+{
+    for (i = 0; i < BOARD_SIZE; i++)
     {
         board[i] = UNOCCUPIED;
-        var idPos = "cell_" + i;
-        document.getElementById(idPos).innerHTML=" ";
     }
-
     DeleteTimes();
     showAverageTime = true;
     var alert = document.getElementById("turnInfo");
@@ -27,7 +29,6 @@ function MakeMove(pos) {
     {
         board[pos] = HUMAN_PLAYER;
         var idPos = "cell_" + pos;
-        document.getElementById(idPos).style.backgroundColor=""
         document.getElementById(idPos).innerHTML="<img src='../images/o.png' />";
         if (!GameOver(board))
         {
@@ -43,7 +44,7 @@ function MakeComputerMove()
 {
     var start, end, time;
     start = new Date().getTime() / 1000;
-    alphaBetaMinimax(board, 0, -Infinity, +Infinity);
+    minimax(board, 0);
     end = new Date().getTime() / 1000;
     time = end - start;
     ShowTimes(time);
@@ -60,7 +61,7 @@ function MakeComputerMove()
     }
 }
 
-function GameScore(game, depth) {
+function score(game, depth) {
     var score = CheckForWinner(game);
     if (score === 1)
         return 0;
@@ -70,44 +71,36 @@ function GameScore(game, depth) {
         return 10-depth;
 }
 
-function alphaBetaMinimax(node, depth, alpha, beta) {
-    if (CheckForWinner(node) === 1 || CheckForWinner(node) === 2 
-            || CheckForWinner(node) === 3)
-        return GameScore(node, depth);
+function minimax(tempBoardGame, depth) {
+    if (CheckForWinner(tempBoardGame) !== 0)
+        return score(tempBoardGame, depth);
     
     depth+=1;
-    var availableMoves = GetAvailableMoves(node);
-    var move, result, possible_game;
+    var scores = new Array();
+    var moves = new Array();
+    var availableMoves = GetAvailableMoves(tempBoardGame);
+    var move, possible_game;
+    for(var i=0; i < availableMoves.length; i++) {
+	move = availableMoves[i];
+        possible_game = GetNewState(move, tempBoardGame);
+        scores.push(minimax(possible_game, depth));
+        moves.push(move);
+        tempBoardGame = UndoMove(tempBoardGame, move);
+    }
+    
+    var max_score, max_score_index, min_score,
+            min_score_index;
     if (active_turn === "COMPUTER") {
-        for (var i = 0; i < availableMoves.length; i++) {
-            move = availableMoves[i];
-            possible_game = GetNewState(move, node);
-            result = alphaBetaMinimax(possible_game, depth, alpha, beta);
-            node = UndoMove(node, move);
-            if (result > alpha) {
-                alpha = result;
-                if (depth == 1)
-                    choice = move;
-            } else if (alpha >= beta) {
-                return alpha;
-            }
-        }
-        return alpha;
+        max_score = Math.max.apply(Math, scores);
+        max_score_index = scores.indexOf(max_score);
+        choice = moves[max_score_index];
+        return scores[max_score_index];
+
     } else {
-        for (var i = 0; i < availableMoves.length; i++) {
-            move = availableMoves[i];
-            possible_game = GetNewState(move, node);
-            result = alphaBetaMinimax(possible_game, depth, alpha, beta);
-            node = UndoMove(node, move);
-            if (result < beta) {
-                beta = result;
-                if (depth == 1)
-                    choice = move;
-            } else if (beta <= alpha) {
-                return beta;
-            }
-        }  
-        return beta;
+        min_score = Math.min.apply(Math, scores);
+        min_score_index = scores.indexOf(min_score);
+        choice = moves[min_score_index];
+        return scores[min_score_index];
     }
 }
 
@@ -138,10 +131,8 @@ function ChangeTurn() {
 function GetAvailableMoves(game) {
     var possibleMoves = new Array();
     for (var i = 0; i < BOARD_SIZE; i++)
-    {
         if (game[i] === UNOCCUPIED)
             possibleMoves.push(i);
-    }
     return possibleMoves;
 }
 
@@ -151,7 +142,7 @@ function GetAvailableMoves(game) {
 //   2 if HUMAN_PLAYER won
 //   3 if COMPUTER_PLAYER won
 function CheckForWinner(game) {
-    // Check for horizontal wins
+   // Check for horizontal wins
     for (i = 0; i <= BOARD_LENGTH * 2;) {
         var boardWidth = BOARD_LENGTH - 1;
         var pointsForHuman = 0;
@@ -215,7 +206,7 @@ function CheckForWinner(game) {
 
     // Check for tie
     for (i = 0; i < BOARD_SIZE; i++) {
-        if (game[i] !== HUMAN_PLAYER && game[i] != COMPUTER_PLAYER)
+        if (game[i] !== HUMAN_PLAYER && game[i] !== COMPUTER_PLAYER)
             return 0;
     }   
     return 1;
@@ -224,9 +215,7 @@ function CheckForWinner(game) {
 function GameOver(game)
 {
     if (CheckForWinner(game) === 0)
-    {
         return false;
-    }
     else if (CheckForWinner(game) === 1)
     {
         var alert = document.getElementById("turnInfo");

@@ -8,13 +8,26 @@ function buildGameBoard(boardSize) {
     board.style.width= 140 * boardSize + "px";
     board.style.height= 140 * boardSize + "px";
 
- // <div id="cell_0" class='cell' data-indx = "0" onclick="MakeMove(0)"></div>
  var htmlElements = "";
     for(i = 0; i < BOARD_SIZE; i++) {
         var cellId = "cell_" + i;
         var onClickIdx = "MakeMove(" + i + ")";
-        var divValue = '<div id=' + cellId + ' class="cell" data-indx = ' + i + ' onclick=' + onClickIdx + '></div>';
+        var onMouseOverIdx = "onMouseOver(" + i + ")";
+        var onMouseLeaveIdx = "onMouseLeave(" + i + ")";
+        var divValue = '<div id=' + cellId + ' class="cell" data-indx = ' + i + ' onclick=' + onClickIdx + ' onmouseover=' + onMouseOverIdx + ' onmouseleave=' + onMouseLeaveIdx + '></div>';
         htmlElements += divValue;
     }
     board.innerHTML = htmlElements;
+}
+
+function onMouseOver(cellId) {
+    var idPos = "cell_" + cellId;
+    if (board[cellId] === UNOCCUPIED) {
+        document.getElementById(idPos).style.backgroundColor="lightgray"
+    }
+}
+
+function onMouseLeave(cellId) {
+    var idPos = "cell_" + cellId;
+    document.getElementById(idPos).style.backgroundColor="white"
 }

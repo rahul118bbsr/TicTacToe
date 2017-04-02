@@ -31,9 +31,13 @@ body {background-color:white}
     margin: 0 auto;
 }
 
-.board {
-    
+.board { 
     margin: 0 auto;
+}
+
+.cell:hover { 
+    /*background-color: gray;*/
+    /*color: gray;*/
 }
 
 .cell {
