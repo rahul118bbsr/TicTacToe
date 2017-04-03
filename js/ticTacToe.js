@@ -195,11 +195,29 @@ function CheckForWinner(game) {
         }
     }
 
-    // Check for diagonal wins
+    // Check for diagonal wins - left to right diagonal
     var pointsForHuman = 0;
     var pointsForComputer = 0;
     for(i = 0; i < BOARD_LENGTH; i++) {
         var index = i + (BOARD_LENGTH * i);
+        if(game[index] == HUMAN_PLAYER) {
+            pointsForHuman++;
+        } else if(game[index] === COMPUTER_PLAYER) {
+            pointsForComputer++;
+        }
+
+    }
+    if(pointsForHuman == BOARD_LENGTH) {
+        return 2;
+    } else if(pointsForComputer == BOARD_LENGTH) {
+        return 3;
+    }
+
+     // Check for diagonal wins - right to left diagonal
+    var pointsForHuman = 0;
+    var pointsForComputer = 0;
+    for(i = 1; i <= BOARD_LENGTH; i++) {
+        var index = (BOARD_LENGTH * i) - i;
         if(game[index] == HUMAN_PLAYER) {
             pointsForHuman++;
         } else if(game[index] === COMPUTER_PLAYER) {
