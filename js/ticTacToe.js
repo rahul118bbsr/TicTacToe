@@ -152,7 +152,7 @@ function GetAvailableMoves(game) {
 //   3 if COMPUTER_PLAYER won
 function CheckForWinner(game) {
     // Check for horizontal wins
-    for (i = 0; i <= BOARD_LENGTH * 2;) {
+    for (i = 0; i <= BOARD_SIZE * 2;) {
         var boardWidth = BOARD_LENGTH - 1;
         var pointsForHuman = 0;
         var pointsForComputer = 0;
@@ -239,18 +239,18 @@ function CheckForWinner(game) {
     return 1;
 }
 
-function GameOver(game)
-{
-    if (CheckForWinner(game) === 0)
+function GameOver(game){
+    var score = CheckForWinner(game)
+    if (score === 0)
     {
         return false;
     }
-    else if (CheckForWinner(game) === 1)
+    else if (score === 1)
     {
         var alert = document.getElementById("turnInfo");
         alert.innerHTML = "It is a tie.";
     }
-    else if (CheckForWinner(game) === 2)
+    else if (score === 2)
     {
         var alert = document.getElementById("turnInfo");
         alert.innerHTML = "You have won! Congratulations!";
