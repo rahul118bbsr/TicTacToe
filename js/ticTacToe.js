@@ -7,7 +7,6 @@ var choice;
 var searchTimes = new Array();
 var showAverageTime = true;
 
-// Test Comment 
 function NewGame() {
    for (i = 0; i < BOARD_SIZE; i++)
     {
