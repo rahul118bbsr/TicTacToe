@@ -1,7 +1,3 @@
-var playerImage = new Image();
-playerImage.src = "../images/o.png";
-var computerImage = new Image();
-computerImage.src = "../images/x.png";
 var board = new Array();
 var UNOCCUPIED = ' ';
 var HUMAN_PLAYER = 'O';
@@ -16,6 +12,8 @@ function NewGame()
     for (i = 0; i < BOARD_SIZE; i++)
     {
         board[i] = UNOCCUPIED;
+        var idPos = "cell_" + i;
+        document.getElementById(idPos).innerHTML=" ";
     }
     DeleteTimes();
     showAverageTime = true;
@@ -29,6 +27,7 @@ function MakeMove(pos) {
     {
         board[pos] = HUMAN_PLAYER;
         var idPos = "cell_" + pos;
+        document.getElementById(idPos).style.backgroundColor=""
         document.getElementById(idPos).innerHTML="<img src='../images/o.png' />";
         if (!GameOver(board))
         {
@@ -142,8 +141,8 @@ function GetAvailableMoves(game) {
 //   2 if HUMAN_PLAYER won
 //   3 if COMPUTER_PLAYER won
 function CheckForWinner(game) {
-   // Check for horizontal wins
-    for (i = 0; i <= BOARD_LENGTH * 2;) {
+    // Check for horizontal wins
+    for (i = 0; i <= BOARD_SIZE * 2;) {
         var boardWidth = BOARD_LENGTH - 1;
         var pointsForHuman = 0;
         var pointsForComputer = 0;
@@ -186,7 +185,7 @@ function CheckForWinner(game) {
         }
     }
 
-    // Check for diagonal wins
+    // Check for diagonal wins - left to right diagonal
     var pointsForHuman = 0;
     var pointsForComputer = 0;
     for(i = 0; i < BOARD_LENGTH; i++) {
@@ -204,9 +203,27 @@ function CheckForWinner(game) {
         return 3;
     }
 
+     // Check for diagonal wins - right to left diagonal
+    var pointsForHuman = 0;
+    var pointsForComputer = 0;
+    for(i = 1; i <= BOARD_LENGTH; i++) {
+        var index = (BOARD_LENGTH * i) - i;
+        if(game[index] == HUMAN_PLAYER) {
+            pointsForHuman++;
+        } else if(game[index] === COMPUTER_PLAYER) {
+            pointsForComputer++;
+        }
+
+    }
+    if(pointsForHuman == BOARD_LENGTH) {
+        return 2;
+    } else if(pointsForComputer == BOARD_LENGTH) {
+        return 3;
+    }
+
     // Check for tie
     for (i = 0; i < BOARD_SIZE; i++) {
-        if (game[i] !== HUMAN_PLAYER && game[i] !== COMPUTER_PLAYER)
+        if (game[i] !== HUMAN_PLAYER && game[i] != COMPUTER_PLAYER)
             return 0;
     }   
     return 1;
