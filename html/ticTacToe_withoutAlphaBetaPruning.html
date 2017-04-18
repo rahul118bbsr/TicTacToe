@@ -13,7 +13,12 @@
   <body id="container">
         <div id="header">
             <h1 class="center">Welcome to Tic Tac Toe - A game built by Humans for the Computer</h1>      
-        </div>        
+        </div>   
+
+         <div class="textStyle">
+            <strong class="textStyle">Search time for move:</strong> <br />
+            <div id="searchTime"></div> 
+       </div>        
 
         <div class = 'main-container'>
             <div id= "boardID" class = 'board'>
@@ -31,14 +36,8 @@
 
         <div class="buttonMargin">
             <form>
-                <input type="button" value="New Game" onclick="NewGame()" class="btn-custom"/>
+                <input type="button" value="Start" onclick="NewGame()" class="start"/>
             </form>
         </div>
-        
-        <div class="textStyle">
-            <strong class="textStyle">Search time for move:</strong> <br />
-            <div id="searchTime"></div> 
-       </div>
-
   </body
 </html>
