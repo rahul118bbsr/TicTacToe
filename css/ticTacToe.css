@@ -41,8 +41,8 @@ body {background-color:white}
 }
 
 .cell {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
     border: 2px dashed lightskyblue;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -117,8 +117,8 @@ body {background-color:white}
 }
 
 .buttonMargin {
-    margin-left: 670px;
-    margin-top: 50px;
+    margin-left: 650px;
+    margin-top: 10px;
 }
 
 .btn-custom {
@@ -139,5 +139,42 @@ body {background-color:white}
 }  
 
 .textStyle {
-    color: black
+    color: black;
+    float: left;
+    margin-left: 20px;
+}
+
+.start {
+    width: 100px;
+    height: 100px;
+    background-color: #87CEFA;
+    line-height: 100px;
+    text-align: center;
+    border-radius: 50px;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    cursor:pointer;
+    opacity:0.5;
+    font-family: "Arial Narrow";
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-top:40px;
+    -moz-focus-inner-border: 0px;
+    -moz-focus-inner-border:0px;
+}
+
+button,
+button:active,
+button:focus, 
+button:hover,
+.start,
+.start:active, 
+.start:focus, 
+.start:hover{   
+    outline:none !important;
+    border:none !important;
 }

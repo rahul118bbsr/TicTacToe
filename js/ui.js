@@ -5,8 +5,8 @@ function buildGameBoard(boardSize) {
     BOARD_SIZE = boardSize * boardSize;
     BOARD_LENGTH = boardSize;
     var board = document.getElementById("boardID")
-    board.style.width= 140 * boardSize + "px";
-    board.style.height= 140 * boardSize + "px";
+    board.style.width= 180 * boardSize + "px";
+    board.style.height= 180 * boardSize + "px";
 
  var htmlElements = "";
     for(i = 0; i < BOARD_SIZE; i++) {
