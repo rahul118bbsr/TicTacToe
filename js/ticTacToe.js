@@ -284,7 +284,7 @@ function ShowAverageTime() {
             sum += searchTimes[i];
         
         document.getElementById("searchTime").innerHTML =
-                document.getElementById("searchTime").innerHTML + "<br />Average search time was <strong>" + sum / i + "</strong> seconds. <br />";
+                document.getElementById("searchTime").innerHTML + "<br />Average search time: <strong>" + (sum / i).toFixed(8) + "</strong> seconds. <br />";
         showAverageTime = false;
     }
 }

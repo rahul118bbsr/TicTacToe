@@ -43,7 +43,7 @@ body {background-color:white}
 .cell {
     width: 180px;
     height: 180px;
-    border: 2px dashed lightskyblue;
+    border: 2px dashed #0325a3;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -82,7 +82,7 @@ body {background-color:white}
     margin-top: 20px;
     width: 100px;
     height: 100px;
-    background-color: #87CEFA;
+    background-color: #0325a3;
     line-height: 100px;
     text-align: center;
     border-radius: 50px;
@@ -142,12 +142,15 @@ body {background-color:white}
     color: black;
     float: left;
     margin-left: 20px;
+    font-family: "Helvetica";
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .start {
     width: 100px;
     height: 100px;
-    background-color: #87CEFA;
+    background-color: 0325a3A;
     line-height: 100px;
     text-align: center;
     border-radius: 50px;
