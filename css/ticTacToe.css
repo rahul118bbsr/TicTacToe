@@ -20,11 +20,6 @@ body {background-color:white}
                          margin: auto
             }
 
-#header {
-    background-color: #0325a3;
-    padding-top: 1px
-} 
-
 .main-container {
     height: 100%;
     width: 900px;
