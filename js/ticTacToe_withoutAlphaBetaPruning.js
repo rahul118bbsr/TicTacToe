@@ -7,14 +7,14 @@ var choice;
 var searchTimes = new Array();
 var showAverageTime = true;
 
-function NewGame() {
-   for (i = 0; i < BOARD_SIZE; i++)
+function NewGame()
+{
+    for (i = 0; i < BOARD_SIZE; i++)
     {
         board[i] = UNOCCUPIED;
         var idPos = "cell_" + i;
         document.getElementById(idPos).innerHTML=" ";
     }
-
     DeleteTimes();
     showAverageTime = true;
     var alert = document.getElementById("turnInfo");
@@ -43,7 +43,7 @@ function MakeComputerMove()
 {
     var start, end, time;
     start = new Date().getTime() / 1000;
-    alphaBetaMinimax(board, 0, -Infinity, +Infinity);
+    minimax(board, 0);
     end = new Date().getTime() / 1000;
     time = end - start;
     ShowTimes(time);
@@ -60,7 +60,7 @@ function MakeComputerMove()
     }
 }
 
-function GameScore(game, depth) {
+function score(game, depth) {
     var score = CheckForWinner(game);
     if (score === 1)
         return 0;
@@ -70,44 +70,36 @@ function GameScore(game, depth) {
         return 10-depth;
 }
 
-function alphaBetaMinimax(node, depth, alpha, beta) {
-    if (CheckForWinner(node) === 1 || CheckForWinner(node) === 2 
-            || CheckForWinner(node) === 3)
-        return GameScore(node, depth);
+function minimax(tempBoardGame, depth) {
+    if (CheckForWinner(tempBoardGame) !== 0)
+        return score(tempBoardGame, depth);
     
     depth+=1;
-    var availableMoves = GetAvailableMoves(node);
-    var move, result, possible_game;
+    var scores = new Array();
+    var moves = new Array();
+    var availableMoves = GetAvailableMoves(tempBoardGame);
+    var move, possible_game;
+    for(var i=0; i < availableMoves.length; i++) {
+	move = availableMoves[i];
+        possible_game = GetNewState(move, tempBoardGame);
+        scores.push(minimax(possible_game, depth));
+        moves.push(move);
+        tempBoardGame = UndoMove(tempBoardGame, move);
+    }
+    
+    var max_score, max_score_index, min_score,
+            min_score_index;
     if (active_turn === "COMPUTER") {
-        for (var i = 0; i < availableMoves.length; i++) {
-            move = availableMoves[i];
-            possible_game = GetNewState(move, node);
-            result = alphaBetaMinimax(possible_game, depth, alpha, beta);
-            node = UndoMove(node, move);
-            if (result > alpha) {
-                alpha = result;
-                if (depth == 1)
-                    choice = move;
-            } else if (alpha >= beta) {
-                return alpha;
-            }
-        }
-        return alpha;
+        max_score = Math.max.apply(Math, scores);
+        max_score_index = scores.indexOf(max_score);
+        choice = moves[max_score_index];
+        return scores[max_score_index];
+
     } else {
-        for (var i = 0; i < availableMoves.length; i++) {
-            move = availableMoves[i];
-            possible_game = GetNewState(move, node);
-            result = alphaBetaMinimax(possible_game, depth, alpha, beta);
-            node = UndoMove(node, move);
-            if (result < beta) {
-                beta = result;
-                if (depth == 1)
-                    choice = move;
-            } else if (beta <= alpha) {
-                return beta;
-            }
-        }  
-        return beta;
+        min_score = Math.min.apply(Math, scores);
+        min_score_index = scores.indexOf(min_score);
+        choice = moves[min_score_index];
+        return scores[min_score_index];
     }
 }
 
@@ -138,10 +130,8 @@ function ChangeTurn() {
 function GetAvailableMoves(game) {
     var possibleMoves = new Array();
     for (var i = 0; i < BOARD_SIZE; i++)
-    {
         if (game[i] === UNOCCUPIED)
             possibleMoves.push(i);
-    }
     return possibleMoves;
 }
 
@@ -239,18 +229,16 @@ function CheckForWinner(game) {
     return 1;
 }
 
-function GameOver(game){
-    var score = CheckForWinner(game)
-    if (score === 0)
-    {
+function GameOver(game)
+{
+    if (CheckForWinner(game) === 0)
         return false;
-    }
-    else if (score === 1)
+    else if (CheckForWinner(game) === 1)
     {
         var alert = document.getElementById("turnInfo");
         alert.innerHTML = "It is a tie.";
     }
-    else if (score === 2)
+    else if (CheckForWinner(game) === 2)
     {
         var alert = document.getElementById("turnInfo");
         alert.innerHTML = "You have won! Congratulations!";
@@ -284,7 +272,7 @@ function ShowAverageTime() {
             sum += searchTimes[i];
         
         document.getElementById("searchTime").innerHTML =
-                document.getElementById("searchTime").innerHTML + "<br />Average search time: <strong>" + (sum / i).toFixed(8) + "</strong> seconds. <br />";
+                document.getElementById("searchTime").innerHTML + "<br />Average search was <strong>" + sum / i + "</strong> seconds. <br />";
         showAverageTime = false;
     }
 }

@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Tic Tac Toe</title>
+    <title>Tic Tac Toe Without Alpha Beta Pruning</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Finger+Paint' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../css/ticTacToe.css" />
-    <script src="../js/ticTacToe.js"></script>
+    <script src="../js/ticTacToe_withoutAlphaBetaPruning.js"></script>
     <script src="../js/ui.js"></script>
 
     <style>
@@ -22,14 +22,14 @@
   <body id="container">
         <div class="header">
             <h1 class="center">Welcome to Tic Tac Toe</h1>      
-        </div>  
+        </div>   
 
-        <div class="textStyle">
+         <div class="textStyle">
             <strong class="textStyle">Search time for move:</strong> <br />
             <div id="searchTime"></div> 
-       </div>      
+       </div>        
 
-        <div class = 'main-container' >
+        <div class = 'main-container'>
             <div id= "boardID" class = 'board'>
                 <script type="text/javascript">
                     buildGameBoard(3);
@@ -39,7 +39,7 @@
          </div>
 
 
-         <div class="buttonMargin textStyle">
+         <div class="buttonMargin textStyle" >
              <p id="turnInfo"> TURN INFO </p>
         </div>
 
@@ -48,6 +48,5 @@
                 <input type="button" value="Start" onclick="NewGame()" class="start"/>
             </form>
         </div>
-
   </body
 </html>
